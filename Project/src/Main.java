@@ -1,17 +1,21 @@
 import java.awt.Button;
 import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Label;
 import java.awt.TextField;
+
+import javax.swing.ImageIcon;
 
 public class Main {
 	private Frame f;
 	private TextField tfId, tfPwd, tfMsg; 
 	private Button bLogin;
+	private Image background=new ImageIcon(Main.class.getResource("/background.png")).getImage();
 
 	public Main() {
-		f = new Frame("Login Frame");
+		f = new Frame("Log in");
 		f.setSize(500, 300);
-//		f.setLocation(2500, 10);//따라 하지 마세요!
 		f.setLayout(null);
 
 		Label lid = new Label("ID : ");
@@ -26,7 +30,7 @@ public class Main {
 		tfPwd = new TextField();
 		tfPwd.setBounds(160, 130, 190, 40);
 
-		bLogin = new Button("Login");
+		bLogin = new Button("로그인");
 		bLogin.setBounds(380, 90, 50, 50);
 
 		tfMsg = new TextField();
@@ -40,6 +44,9 @@ public class Main {
 		f.add(tfMsg);
 
 		f.setVisible(true);
+	}
+	public void paint(Graphics g) {
+		g.drawImage(background, 0, 0, null);
 	}
 
 	public static void main(String[] args) {

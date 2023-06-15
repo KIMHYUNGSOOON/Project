@@ -145,7 +145,7 @@ public class FILE {
 		USER_ID.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		USER_ID.setHorizontalAlignment(SwingConstants.CENTER);
 		USER_ID.setColumns(10);
-		USER_ID.setBounds(12, 68, 260, 30);
+		USER_ID.setBounds(12, 68, 260, 30);  
 		USER_ID.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		USER_ID.setForeground(Color.GRAY);
 		USER_ID.addFocusListener(new FocusListener() {

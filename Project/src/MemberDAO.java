@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class MemberDAO {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521/xe";
-	String user = "c##himedia";
-	String password = "himedia";
+	String user = "C##FIRSTPROJ";
+	String password = "FIRSTPROJ";
 
 	private Connection con;
 	private Statement stmt;
@@ -34,15 +34,12 @@ public class MemberDAO {
 				System.out.println("0 row selected...");
 			} else {
 				System.out.println(rs.getRow() + " rows selected...");
-//				rs.previous();
 				rs.first();
 
 				while (rs.next()) {
 					String empno = rs.getString("empno");
 					String ename = rs.getString("ename");
 					int sal = rs.getInt("sal");
-//					int comm = rs.getInt("comm");
-
 					MemberVo data = new MemberVo(empno, ename, sal);
 					list.add(data);
 				}
