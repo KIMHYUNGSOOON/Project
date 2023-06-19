@@ -1,3 +1,4 @@
+package test;
 public class MemberVo {
 	private String empno;
 	private String ename;

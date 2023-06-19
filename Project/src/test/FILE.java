@@ -1,3 +1,4 @@
+package test;
 import java.sql.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -5,98 +6,134 @@ import javax.swing.*;
 
 public class FILE {
 
+    private static final String dirver = null;
 	JFrame frame;
-	JPasswordField USER_PW;
-	JTextField USER_ID;
-	JButton btn_SIGNUP;
-	
-	JTextField textField_1;
-	JPasswordField passwordField;
-	JTextField textField_3;
-	JTextField textField_4;
-	
-	Connection con = null;
-	Statement stmt = null;
-	ResultSet rs = null;
-	
-	String db_name="데이터베이스 스키마 이름", db_route="jdbc:mysql://localhost:3306/" + db_name;
-	String db_id = "root", db_password = "데이터베이스 비밀번호";
-	
-	// 생성자 Constructor ---------------------------->
-	public FILE() {
-		// ...
-	}	
-	
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FILE window = new FILE();
-					window.LOGIN();
-					window.frame.setVisible(true);
-					
+    JPasswordField USER_PW;
+    JTextField USER_ID;
+    JButton btn_SIGNUP;
 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    JTextField textField_1;
+    JPasswordField passwordField;
+    JTextField textField_3;
+    JTextField textField_4;
 
-	
-	// mySQL 접속하기 ---------------------------->
-	protected void  SQL_CONNECT() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(db_route, db_id, db_password);
-			stmt = con.createStatement();
-			System.out.println("데이터베이스 연결성공");
-		
-		} catch (Exception e) { System.out.println("데이터베이스 연결실패"); }
-	}
-	
-	
-	//  mySQL 종료하기 ---------------------------->	
-	protected void SQL_DISCONNECT() {
-		try {
-			con.close();
-			stmt.close();
-			System.out.println("데이터베이스 종료성공");
-		} catch (Exception e) { System.out.println("데이터베이스 종료실패"); }		
-	}
-	
-	
-	//  mySQL 연동 > 로그인 시도 ---------------------------->
-	protected void SQL_LOGIN() {
-		System.out.println("로그인 시도");	
-		SQL_CONNECT();
-		
-		try {
-			System.out.println("데이터베이스 추출시작");
-			rs = stmt.executeQuery("SELECT * FROM account");
-			for (int n=1; rs.next(); n++) {
-				System.out.println("계정목록 불러오기 ===>" +
-						"\n" + n + " > ID [" + rs.getString("ID") +
-						"]\n" + n + " > PW [" + rs.getString("PW") +
-						"]\n" + n + " > NAME [" + rs.getString("NAME") +
-						"]\n" + n + " > TEL [" + rs.getString("TEL") + "]"
-						);
-				// 하나씩 대조하다보니, 딱 맞는게 나오면 return 종료
-				if (USER_ID.getText().equals(rs.getString("ID")) && USER_PW.getText().equals(rs.getString("PW"))) {
-					JOptionPane.showMessageDialog(null, rs.getString("NAME") + "님 환영합니다 :)");
-					USER_ID.requestFocus();
-					return;
-					}			
-			} // 다했지만, 안나온다면 return을 만나지못했음으로, 아래 내용이 실행
-			JOptionPane.showMessageDialog(null, "ID 혹은 PW를 확인해주세요");
-			USER_ID.requestFocus();
-			
-			
-		} catch (Exception e) { System.out.println("오류오류"); }
-		
-		SQL_DISCONNECT();	
-	}
+    Connection con = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+
+    String db_name = "oracle.jdbc.driver.OracleDriver";
+    String db_route = "jdbc:oracle:thin:@localhost:1521/XE";
+    String db_id = "C##FIRSTPROJ";
+    String db_password = "FIRSTPROJ";
+    public  void insertForStatement(String ID,String PASSWORD) {
+        try {
+             Class.forName(dirver);
+             System.out.println("jdbc driver loading success.");
+             Connection conn = DriverManager.getConnection(db_name, db_route, db_id);
+             System.out.println("oracle connection success.\n");
+             Statement stmt = conn.createStatement();
+             
+             
+             String sql2 = "INSERT INTO ZOOLOGIN VALUES ('" +ID + "','" + PASSWORD + "')";
+             System.out.println(sql2);
+             
+            
+             
+            boolean b =stmt.execute(sql2);
+            if (!b) {
+                System.out.println("Insert success.\n");
+             } else {
+                System.out.println("Insert fail.\n");
+             }
+
+         
+
+
+          } catch (ClassNotFoundException e) {
+             System.out.println(e);
+          } catch (SQLException e) {
+             System.out.println(e);
+          }
+
+       }
+
+    // 생성자 Constructor ---------------------------->
+    public FILE() {
+        // ...
+    }
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    FILE window = new FILE();
+                    window.LOGIN();
+                    window.frame.setVisible(true);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    // 데이터 접속하기 ---------------------------->
+    protected void SQL_CONNECT() {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            con = DriverManager.getConnection(db_route, db_id, db_password);
+            stmt = con.createStatement();
+            System.out.println("데이터베이스 연결성공");
+
+        } catch (Exception e) {
+            System.out.println("데이터베이스 연결실패");
+        }
+    }
+
+    //  mySQL 종료하기 ---------------------------->	
+    protected void SQL_DISCONNECT() {
+        try {
+            con.close();
+            stmt.close();
+            System.out.println("데이터베이스 종료성공");
+        } catch (Exception e) {
+            System.out.println("데이터베이스 종료실패");
+        }
+    }
+
+    //  mySQL 연동 > 로그인 시도 ---------------------------->
+    protected void SQL_LOGIN() {
+        System.out.println("로그인 시도");
+        SQL_CONNECT();
+
+        try {
+            System.out.println("데이터베이스 추출시작");
+            rs = stmt.executeQuery("SELECT * FROM account");
+            for (int n = 1; rs.next(); n++) {
+                System.out.println("계정목록 불러오기 ===>" +
+                        "\n" + n + " > ID [" + rs.getString("ID") +
+                        "]\n" + n + " > PW [" + rs.getString("PW") +
+                        "]\n" + n + " > NAME [" + rs.getString("NAME") +
+                        "]\n" + n + " > TEL [" + rs.getString("TEL") + "]"
+                );
+                // 하나씩 대조하다보니, 딱 맞는게 나오면 return 종료
+                if (USER_ID.getText().equals(rs.getString("ID")) && USER_PW.getText().equals(rs.getString("PW"))) {
+                    JOptionPane.showMessageDialog(null, rs.getString("NAME") + "님 환영합니다 :)");
+                    USER_ID.requestFocus();
+                    return;
+                }
+            } // 다했지만, 안나온다면 return을 만나지못했음으로, 아래 내용이 실행
+            JOptionPane.showMessageDialog(null, "ID 혹은 PW를 확인해주세요");
+            USER_ID.requestFocus();
+
+        } catch (Exception e) {
+            System.out.println("실패");
+        }
+
+        SQL_DISCONNECT();
+    }
+
+    //  mySQL 연동 > 회원가입
 	
 
 	//  mySQL 연동 > 회원가입 시도 [매개변수 > ①아디 ②비번 ③이름 ④연락처]
@@ -114,7 +151,7 @@ public class FILE {
 				if (getID.equals(rs.getString("ID"))) {
 					JOptionPane.showMessageDialog(null, "[등록불가] 누군가 사용중인 계정입니다");
 					return;
-					}			
+				}
 			} // 등록된 계정이 아니라면, 새로 회원등록
 			stmt.executeUpdate("INSERT INTO account VALUES('" + 
 					getID + "', '" +
@@ -136,7 +173,7 @@ public class FILE {
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
-
+		
 		JPanel p1 = new JPanel();
 		p1.setBounds(0, 0, 284, 361);
 		p1.setBackground(Color.WHITE);
@@ -418,6 +455,7 @@ public class FILE {
 				} catch (Exception NumberFormatException) {
 					JOptionPane.showMessageDialog(null, "전화번호는 숫자로만 입력가능합니다.");
 				}
+				
 			}
 		});
 		btn_OK.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
@@ -447,5 +485,7 @@ public class FILE {
 		});	
 		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 	}
+	
 }
