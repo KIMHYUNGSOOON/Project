@@ -1,3 +1,4 @@
+package FirstProj;
 
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ public class LunchMenuRoulette extends JFrame {
     private JLabel resultLabel;
     private JButton recommendButton;
     private String[] menuOptions = {
-            "피자",
+            "Pizza",
             "Hamburger",
             "Jajangmyeon",
             "Sushi",
@@ -33,7 +34,7 @@ public class LunchMenuRoulette extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
-        resultLabel = new JLabel("오늘의 메뉴는??");
+        resultLabel = new JLabel("Today Menu??");
         resultLabel.setFont(new Font("Arial", Font.BOLD, 16));
         panel.add(resultLabel);
 
