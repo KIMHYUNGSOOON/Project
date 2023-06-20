@@ -46,7 +46,6 @@ public class LunchMenuRoulette extends JFrame {
         });
         panel.add(recommendButton);
 
-        
         add(panel);
     }
 
