@@ -1,4 +1,4 @@
-package test;
+package sdad;
 public class MemberVo {
 	private String empno;
 	private String ename;

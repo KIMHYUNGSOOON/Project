@@ -1,4 +1,4 @@
-package test;
+package TestExample;
 import java.sql.*;
 import java.awt.*;
 import java.awt.event.*;

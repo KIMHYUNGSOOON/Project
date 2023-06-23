@@ -20,14 +20,13 @@ public class MainLogin implements ActionListener {
     public MainLogin() {
         dao = new MemberDAO();
 
-        
         // 메인 프레임 ----------------------------------------------------
         f = new Frame("로그인");
         f.setSize(500, 300);
         f.setLayout(null);  //얘가 있으면 다른 애들 위치를 다 잡아줘야함
 
         Label lid = new Label("아이디 : ");
-        lid.setBounds(50, 50, 100, 40); // x축 위치, y축 위치, 가로,세로
+        lid.setBounds(50, 50, 100, 40); // x축 위치, y축 위치, 가로크기,세로크기
 
         tfId = new TextField();
         tfId.setBounds(160, 60, 190, 40);
@@ -46,27 +45,29 @@ public class MainLogin implements ActionListener {
         tfMsg.setBounds(50, 180, 370, 40);
         
         
-        
         // 아이디 찾기 프레임 ------------------------------------------
         Frame bw2sub = new Frame("아이디 찾기");
-        bw2sub.setSize(400, 300);
+        bw2sub.setSize(500, 300);
         bw2sub.setLocationRelativeTo(null);
         bw2sub.setLayout(null);
         
         Label sub2lname = new Label("이름");
-        sub2lname.setBounds(100, 10, 100, 40);
+        sub2lname.setBounds(70, 49, 100, 40);
 
         sub2tfname = new TextField();
-        sub2tfname.setBounds(150, 55, 230, 30);
+        sub2tfname.setBounds(170, 55, 230, 30);
         
         Label sub2ltell = new Label("   전화번호");
-        sub2ltell.setBounds(70, 150, 100, 40);
+        sub2ltell.setBounds(60, 150, 100, 40);
 
         sub2tftell = new TextField();
-        sub2tftell.setBounds(150, 155, 230, 30);
+        sub2tftell.setBounds(170, 155, 230, 30);
         
         Button subbt2=new Button("아이디 찾기");
         subbt2.setBounds(220,200, 80, 30);
+        
+        Button subbt3=new Button("비밀번호 찾기");
+        subbt3.setBounds(320, 200, 80, 30);
         
         
         //회원가입 프레임 ---------------------------------------------------------
@@ -77,7 +78,7 @@ public class MainLogin implements ActionListener {
         bw1sub.setLayout(null);
         
         Label sublname = new Label("이름");
-        sublname.setBounds(70, 20, 100, 40); 
+        sublname.setBounds(90, 50, 100, 40); 
 
         subtfname = new TextField();
         subtfname.setBounds(150, 55, 230, 30);
@@ -136,7 +137,9 @@ public class MainLogin implements ActionListener {
             	String TELL=subtftell.getText();
             	
             	dao.insertForStatement(ID, PASSWORD, NAME, TELL);
+            	bw1sub.dispose();
             	}
+        		
         });
         
         
@@ -180,11 +183,12 @@ public class MainLogin implements ActionListener {
         
         //아이디,비밀번호 찾기 창 -----------------------------------------------
         
-        bw2sub.add(sublname);
+        bw2sub.add(sub2lname);
         bw2sub.add(sub2tfname);
         bw2sub.add(sub2ltell);
         bw2sub.add(sub2tftell);
         bw2sub.add(subbt2);
+        bw2sub.add(subbt3);
         
         bw1sub.addWindowListener(new WindowAdapter() {
         	@Override
@@ -236,10 +240,11 @@ public class MainLogin implements ActionListener {
 //            System.out.println("DB ==> " + ID + " " + PASSWORD);
 
             if (tfPwd.getText().equals(PASSWORD)) {
-            	
+            	Main.main(new String[0]);			//아이디 실행 성공
+            	f.dispose();
                 System.out.println(ID+"님 반갑습니다");
             } else {
-                System.out.println("다시 입력하세요");
+                System.out.println("다시 입력하세요");	//아이디 실행 실패
             }
         }
     }

@@ -1,4 +1,5 @@
 package FirstProj;
+
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
@@ -9,13 +10,15 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class RouletteFrame extends Frame {
-    private Button spinButton;
-    private Button increaseButton;
-    private Button decreaseButton;
+    private JButton spinButton;
+    private JButton increaseButton;
+    private JButton decreaseButton;
     private boolean spinning;
     private int currentAngle;
     private int numOfSections;
@@ -26,29 +29,17 @@ public class RouletteFrame extends Frame {
 
     public RouletteFrame() {
         setTitle("Roulette");
-        setSize(400, 450);
+        setSize(600, 500);
         setLocationRelativeTo(null);
         setLayout(null);
-        
-        Button backButton = new Button("뒤로가기");
-        backButton.setBounds(10, 10, 40, 20);
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();  // 현재 프레임 닫기
-//                Main Framef mainFrame = new Main Framef();  // 메인 프레임 생성
-//                mainFrame.setVisible(true);  // 메인 프레임 보이기
-            }
-        });
-        add(backButton);
-//    }
         
         numOfSections = 2; // 초기 칸 수
         rotationSpeed = 10; // 룰렛 회전 속도 (angle 증가 값)
         memoFields = new JTextField[numOfSections];
         memoMap = new HashMap<>();
 
-        increaseButton = new Button("+");
-        increaseButton.setBounds(225, 400, 30, 30);
+        increaseButton = new JButton("+");
+        increaseButton.setBounds(380, 440, 50, 55);
         increaseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!spinning) {
@@ -58,8 +49,8 @@ public class RouletteFrame extends Frame {
         });
         add(increaseButton);
 
-        decreaseButton = new Button("-");
-        decreaseButton.setBounds(255, 400, 30, 30);
+        decreaseButton = new JButton("-");
+        decreaseButton.setBounds(430, 440, 50, 55);
         decreaseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!spinning) {
@@ -69,8 +60,8 @@ public class RouletteFrame extends Frame {
         });
         add(decreaseButton);
 
-        spinButton = new Button("도전");
-        spinButton.setBounds(285, 380, 80, 50);
+        spinButton = new JButton("시작");
+        spinButton.setBounds(480, 440, 113, 55);
         spinButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!spinning) {
@@ -83,8 +74,8 @@ public class RouletteFrame extends Frame {
 
         int fieldWidth = 200;
         int fieldHeight = 30;
-        int fieldX = 50;
-        int fieldY = 340;
+        int fieldX = 380; // 메모 칸 위치 (오른쪽)
+        int fieldY = 80;
 
         addMemoFields(numOfSections, fieldX, fieldY, fieldWidth, fieldHeight); // 초기 칸 수에 맞게 메모 칸 추가
 
@@ -96,8 +87,7 @@ public class RouletteFrame extends Frame {
 
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
-        int radius = Math.min(getWidth(), getHeight()) / 2 - 50;
-
+        int radius = Math.min(getWidth(), getHeight()) / 3 - 30;
         double sectionAngle = 360.0 / numOfSections;
 
         for (int i = 0; i < numOfSections; i++) {
@@ -111,7 +101,7 @@ public class RouletteFrame extends Frame {
         }
 
         g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.BOLD, 24));
+        g.setFont(new Font("", Font.BOLD, 24));
         g.drawString("", centerX - 40, centerY + 10);
     }
 
@@ -123,7 +113,7 @@ public class RouletteFrame extends Frame {
     private void increaseNumOfSections() {
         if (numOfSections < 6) {
             numOfSections++;
-            addMemoFields(1, 50, 340 + (numOfSections - 1) * 40, 200, 30); // 메모 칸 추가
+            addMemoFields(1, 350, 50 + (numOfSections - 1) * 40, 200, 30); // 메모 칸 추가
             repaint();
         }
     }
@@ -144,7 +134,7 @@ public class RouletteFrame extends Frame {
 
         for (int i = memoFields.length; i < newFields.length; i++) {
             newFields[i] = new JTextField();
-            newFields[i].setBounds(x, y, width, height);
+            newFields[i].setBounds(x, y, width, height);   //1231231231
             add(newFields[i]);
             y += height + 10;
         }
@@ -191,16 +181,13 @@ public class RouletteFrame extends Frame {
                     }
                 }
 
-                String memo = memoMap.get(result);
                 String message = "결과: " + result;
-                if (memo != null && !memo.isEmpty()) {
-                    message += "\n메모: " + memo;
-                }
                 JOptionPane.showMessageDialog(null, message, "Result", JOptionPane.INFORMATION_MESSAGE);
                 spinning = false;
             }
         }).start();
     }
+
     public static void main(String[] args) {
         new RouletteFrame();
     }

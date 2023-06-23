@@ -18,7 +18,19 @@ public class TableExample extends JFrame {
     public TableExample() {
         setTitle("추천 식당");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
+        JButton back =new JButton("back");
+        back.setBounds(370, 5, 50, 25);
+        add(back);
+        
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Main.main(new String[0]);
+            }
+        });
+        
         // 테이블 모델 초기화
         tableModel = new DefaultTableModel();
         tableModel.addColumn("가게이름");

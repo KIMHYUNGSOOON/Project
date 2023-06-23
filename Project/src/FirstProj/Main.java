@@ -27,9 +27,9 @@ public class Main {
         q.setSize(700, 700);
 
         // 메인 2번 서브 ------------------------------------
-        Frame w = new Frame("frame 2");
-        w.setSize(700, 700);
-        w.setLocation(100, 75);
+//        Frame w = new Frame("frame 2");
+//        w.setSize(700, 700);
+//        w.setLocation(100, 75);
         
         
 
@@ -59,22 +59,9 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
-                w.setVisible(true);
+                TableExample frame =new TableExample();
+            	frame.setVisible(true);
                 
-            }
-        });
-
-        // 메인버튼 2번 서브 -----------------------------------------
-        Button l = new Button("2");
-        l.setSize(10, 10);
-        l.setLocation(0, 0);
-        l.setBounds(100, 100, 10, 10);
-
-        l.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                w.setVisible(false);
-                f.setVisible(true);
             }
         });
 
@@ -89,7 +76,7 @@ public class Main {
         btn4.setPreferredSize(new Dimension(150, 150));
         btn4.setLocation(100, 75);
         btn4.setBounds(560, 400, 100, 50);
-
+        
         btn4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,7 +98,6 @@ public class Main {
             }
         });
         
-        
         //3번 버튼을 누르면 점심룰렛창으로 넘어감
         d.addActionListener(new ActionListener() {
             @Override
@@ -120,6 +106,7 @@ public class Main {
                     public void run() {
                         LunchMenuRoulette frame = new LunchMenuRoulette();
                         frame.setVisible(true);
+                        f.dispose(); 
                     }
                 });
             }
@@ -139,8 +126,5 @@ public class Main {
         f.add(btn4);
         f.setVisible(true);
         q.setVisible(false);
-        w.setVisible(false);
-        w.setLayout(new FlowLayout());
-        w.add(l);
     }
 }

@@ -1,4 +1,4 @@
-package test;
+package sdad;
 import java.awt.Button;
 import java.awt.Frame;
 import java.awt.Graphics;

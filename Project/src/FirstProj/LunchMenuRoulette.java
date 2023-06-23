@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class LunchMenuRoulette extends JFrame {
     private JLabel resultLabel;
-    private JButton recommendButton;
+    private JButton recommendButton,backButton;
     private String[] menuOptions = {
             "피자",
             "햄버거",
@@ -29,7 +29,16 @@ public class LunchMenuRoulette extends JFrame {
         setSize(300, 150);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
+        
+        backButton = new JButton("뒤로가기"+new ImageIcon(""));  //버튼 이미지 설정 
+        backButton.addActionListener(new ActionListener() {	  // 백버튼을 누르면 실행
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        		Main.main(new String[0]);						// 메인창이 열림
+        	}
+        });
+        
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         
@@ -45,7 +54,7 @@ public class LunchMenuRoulette extends JFrame {
             }
         });
         panel.add(recommendButton);
-
+        panel.add(backButton);
         add(panel);
     }
 
