@@ -19,8 +19,8 @@ public class TableExample extends JFrame {
         setTitle("추천 식당");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        JButton back =new JButton("back");
-        back.setBounds(370, 5, 50, 25);
+        JButton back =new JButton("뒤로가기");
+        back.setBounds(350, 5, 90, 28);
         add(back);
         
         back.addActionListener(new ActionListener() {

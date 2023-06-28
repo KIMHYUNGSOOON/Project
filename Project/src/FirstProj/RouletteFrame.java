@@ -1,6 +1,5 @@
 package FirstProj;
 
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
@@ -19,6 +18,8 @@ public class RouletteFrame extends Frame {
     private JButton spinButton;
     private JButton increaseButton;
     private JButton decreaseButton;
+    private JButton backButton;
+    
     private boolean spinning;
     private int currentAngle;
     private int numOfSections;
@@ -29,17 +30,27 @@ public class RouletteFrame extends Frame {
 
     public RouletteFrame() {
         setTitle("Roulette");
-        setSize(600, 500);
+        setSize(1600, 800);
         setLocationRelativeTo(null);
         setLayout(null);
-        
+
+        backButton = new JButton("뒤로가기");
+        backButton.setBounds(50, 50, 90, 55);
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Main.main(new String[0]);
+            }
+        });
+        add(backButton);
+
         numOfSections = 2; // 초기 칸 수
         rotationSpeed = 10; // 룰렛 회전 속도 (angle 증가 값)
         memoFields = new JTextField[numOfSections];
         memoMap = new HashMap<>();
-
+        
         increaseButton = new JButton("+");
-        increaseButton.setBounds(380, 440, 50, 55);
+        increaseButton.setBounds(1300, 600, 50, 55);
         increaseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!spinning) {
@@ -50,7 +61,7 @@ public class RouletteFrame extends Frame {
         add(increaseButton);
 
         decreaseButton = new JButton("-");
-        decreaseButton.setBounds(430, 440, 50, 55);
+        decreaseButton.setBounds(1350, 600, 50, 55);
         decreaseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!spinning) {
@@ -61,7 +72,7 @@ public class RouletteFrame extends Frame {
         add(decreaseButton);
 
         spinButton = new JButton("시작");
-        spinButton.setBounds(480, 440, 113, 55);
+        spinButton.setBounds(1400, 600, 113, 55);
         spinButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!spinning) {
@@ -74,8 +85,8 @@ public class RouletteFrame extends Frame {
 
         int fieldWidth = 200;
         int fieldHeight = 30;
-        int fieldX = 380; // 메모 칸 위치 (오른쪽)
-        int fieldY = 80;
+        int fieldX = 350; // 메모 칸 위치 (오른쪽)
+        int fieldY = 50; // 오른쪽 맨 위로 이동
 
         addMemoFields(numOfSections, fieldX, fieldY, fieldWidth, fieldHeight); // 초기 칸 수에 맞게 메모 칸 추가
 
@@ -84,7 +95,7 @@ public class RouletteFrame extends Frame {
 
     public void paint(Graphics g) {
         super.paint(g);
-
+        
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
         int radius = Math.min(getWidth(), getHeight()) / 3 - 30;
@@ -99,7 +110,7 @@ public class RouletteFrame extends Frame {
             g.setColor(Color.BLACK);
             g.drawArc(centerX - radius, centerY - radius, radius * 2, radius * 2, startAngle, (int) sectionAngle);
         }
-
+        
         g.setColor(Color.WHITE);
         g.setFont(new Font("", Font.BOLD, 24));
         g.drawString("", centerX - 40, centerY + 10);
@@ -117,7 +128,7 @@ public class RouletteFrame extends Frame {
             repaint();
         }
     }
-
+    
     private void decreaseNumOfSections() {
         if (numOfSections > 2) {
             numOfSections--;
@@ -134,7 +145,7 @@ public class RouletteFrame extends Frame {
 
         for (int i = memoFields.length; i < newFields.length; i++) {
             newFields[i] = new JTextField();
-            newFields[i].setBounds(x, y, width, height);   //1231231231
+            newFields[i].setBounds(x, y, width, height);
             add(newFields[i]);
             y += height + 10;
         }
@@ -154,7 +165,8 @@ public class RouletteFrame extends Frame {
 
     private void spinRoulette() {
         Random random = new Random();
-        result = random.nextInt(numOfSections) + 1;
+        //        result = random.nextInt(numOfSections) + 1;
+        result = (int) (random.nextDouble() * numOfSections) + 1; // 결과값
 
         new Thread(new Runnable() {
             public void run() {

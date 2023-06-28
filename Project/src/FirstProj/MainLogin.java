@@ -225,27 +225,39 @@ public class MainLogin implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+    	Main.main(new String[0]); //임방
+    	f.dispose();
+    	
+    	
         System.out.println("click");
         System.out.println(tfId.getText() + " " + tfPwd.getText());
 
         String strId = tfId.getText();
-
+        
         ArrayList<MemberVo> list = dao.list(strId);
 
         for (int i = 0; i < list.size(); i++) {
             MemberVo data = (MemberVo) list.get(i);
             String ID = data.getID();
             String PASSWORD = data.getPASSWORD();
+            String NAME =data.getNAME();
+            String TELL=data.getTELL();
            
 //            System.out.println("DB ==> " + ID + " " + PASSWORD);
 
-            if (tfPwd.getText().equals(PASSWORD)) {
-            	Main.main(new String[0]);			//아이디 실행 성공
+            if (tfPwd.getText().equals(PASSWORD)&&tfId.getText().equals(ID)) {
+            	Main.main(new String[0]);			//아이디 확인 성공
             	f.dispose();
                 System.out.println(ID+"님 반갑습니다");
             } else {
                 System.out.println("다시 입력하세요");	//아이디 실행 실패
             }
+            if(sub2tfname.getText().equals(NAME)||sub2tftell.getText().equals(TELL)) {
+            	System.out.println("일치하는 정보가 없습니다");
+            }else if(sub2tfname.getText().equals(NAME)||sub2tftell.getText().equals(TELL)) {
+            	System.out.println("아이디는 "+tfId+"입니다");
+            }
         }
+        
     }
 }

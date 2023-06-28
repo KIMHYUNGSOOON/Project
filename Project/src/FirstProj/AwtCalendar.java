@@ -1,3 +1,4 @@
+
 package FirstProj;
 
 import java.awt.Button;
@@ -23,7 +24,8 @@ import javax.swing.JButton;
 public class AwtCalendar extends Frame implements ItemListener {
     private Choice chyear = new Choice(); // 연도 선택
     private Choice chmonth = new Choice(); // 월 선택
-
+    
+    
     private Label yLabel = new Label("년");
     private Label mLabel = new Label("월");
     private GregorianCalendar gc; // 캘린더
@@ -43,6 +45,7 @@ public class AwtCalendar extends Frame implements ItemListener {
     private Calendar ca = Calendar.getInstance();
 
     AwtCalendar() { // 생성자
+    	
         this.setTitle("캘린더");
         this.setSize(550, 500);
         dimen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -50,7 +53,7 @@ public class AwtCalendar extends Frame implements ItemListener {
         xpos = (int) (dimen.getWidth() / 2 - dimen1.getWidth() / 2);
         ypos = (int) (dimen.getHeight() / 2 - dimen1.getHeight() / 2);
         this.setLocation(xpos, ypos);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setVisible(true);
 
         init();
@@ -111,7 +114,7 @@ public class AwtCalendar extends Frame implements ItemListener {
         selectPanel.add(chmonth);
         selectPanel.add(mLabel);
         selectPanel.add(backButton);
-
+        
         this.add(selectPanel, "North");
         this.add(panel, "Center");
 
