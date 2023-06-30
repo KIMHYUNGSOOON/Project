@@ -246,7 +246,7 @@ public class MainLogin implements ActionListener {
 //            System.out.println("DB ==> " + ID + " " + PASSWORD);
 
             if (tfPwd.getText().equals(PASSWORD)&&tfId.getText().equals(ID)) {
-            	Main.main(new String[0]);			//아이디 확인 성공
+//            	Main.main(new String[0]);			//아이디 확인 성공
             	f.dispose();
                 System.out.println(ID+"님 반갑습니다");
             } else {

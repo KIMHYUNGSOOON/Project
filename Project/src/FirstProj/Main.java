@@ -59,8 +59,10 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
-                TableExample frame =new TableExample();
-            	frame.setVisible(true);
+                Search.main(new String[0]);
+//                TableExample frame =new TableExample();
+//                new SearchFrame().setVisible(true);
+//            	frame.setVisible(true);
                 
             }
         });

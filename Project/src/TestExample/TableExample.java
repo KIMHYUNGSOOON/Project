@@ -1,5 +1,5 @@
 
-package FirstProj;
+package TestExample;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +27,7 @@ public class TableExample extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                Main.main(new String[0]);
+//                Main.main(new String[0]);
             }
         });
         

@@ -100,7 +100,7 @@ public class RouletteFrame extends Frame {
         int centerY = getHeight() / 2;
         int radius = Math.min(getWidth(), getHeight()) / 3 - 30;
         double sectionAngle = 360.0 / numOfSections;
-
+        
         for (int i = 0; i < numOfSections; i++) {
             int startAngle = (int) (i * sectionAngle + currentAngle) % 360;
             int endAngle = (int) ((i + 1) * sectionAngle + currentAngle) % 360;

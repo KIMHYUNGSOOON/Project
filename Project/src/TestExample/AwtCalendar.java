@@ -1,4 +1,4 @@
-package FirstProj;
+package TestExample;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -46,7 +46,7 @@ public class AwtCalendar extends Frame implements ItemListener {
     AwtCalendar() { // 생성자
 
         this.setTitle("캘린더");
-        this.setSize(700, 600);
+        this.setSize(550, 500);
         dimen = Toolkit.getDefaultToolkit().getScreenSize();
         dimen1 = this.getSize();
         xpos = (int) (dimen.getWidth() / 2 - dimen1.getWidth() / 2);
@@ -63,13 +63,13 @@ public class AwtCalendar extends Frame implements ItemListener {
             }
         });
 
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // 뒤로가기 버튼 동작
-                dispose();
-                Main.main(new String[0]);
-            }
-        });
+//        backButton.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                // 뒤로가기 버튼 동작
+//                dispose();
+//                Main.main(new String[0]);
+//            }
+//        });
 
         
         this.setVisible(true); // setVisible(true) 호출 위치 수정
