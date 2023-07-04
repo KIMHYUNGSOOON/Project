@@ -65,7 +65,8 @@ public class RouletteFrame extends Frame {
         decreaseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!spinning) {
-                    decreaseNumOfSections();
+                    int count = 1; // 제거할 칸의 수를 1로 초기화
+                    decreaseNumOfSections(count);
                 }
             }
         });
@@ -129,10 +130,10 @@ public class RouletteFrame extends Frame {
         }
     }
     
-    private void decreaseNumOfSections() {
+    private void decreaseNumOfSections(int count) {
         if (numOfSections > 2) {
-            numOfSections--;
-            removeMemoFields(1); // 메모 칸 제거
+            numOfSections -= count; // 제거할 칸의 수만큼 감소
+            removeMemoFields(count); // 메모 칸 제거
             repaint();
         }
     }
@@ -155,14 +156,19 @@ public class RouletteFrame extends Frame {
 
     private void removeMemoFields(int count) {
         JTextField[] newFields = new JTextField[memoFields.length - count];
-        for (int i = 0; i < newFields.length; i++) {
-            newFields[i] = memoFields[i];
-            remove(memoFields[i + count]);
+        int removedCount = 0; // 제거한 요소의 수를 세는 변수
+
+        for (int i = 0; i < memoFields.length; i++) {
+            if (removedCount < count && memoFields[i] != null) {
+                remove(memoFields[i]); // 컨테이너에서 컴포넌트 제거
+                removedCount++;
+            } else {
+                newFields[i - removedCount] = memoFields[i];
+            }
         }
 
         memoFields = newFields;
     }
-
     private void spinRoulette() {
         Random random = new Random();
         //        result = random.nextInt(numOfSections) + 1;
