@@ -17,7 +17,33 @@ public class MemberDAO {
     private Connection con;
     private Statement stmt;
     private ResultSet rs;
+  //----------달력----------------------------------
+    
+    public void fetchCalendarDataToTextField() {
+        try {
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+            String query = "SELECT * FROM CALLENDAR";
+            ResultSet rs = stmt.executeQuery(query);
 
+            // 텍스트 필드를 사용하는 UI 프레임워크에서 해당 필드를 참조하여 값을 표시해야 합니다.
+            while (rs.next()) {
+                String TODAY = rs.getString("TODAY");
+                // 여기에서 필요한 작업을 수행하세요. (예: 텍스트 필드에 값을 설정하는 등)
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //----------------------------------------------
     public void fetchTableDataToTextField() {
         try {
             Class.forName(driver);
@@ -30,6 +56,24 @@ public class MemberDAO {
 //             textField.setText(rs.getString("column_name"));
             
             rs.close();
+            stmt.close();
+            conn.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void insertForStatements(String TODAY) {
+        try {
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+
+            String sql3 = "INSERT INTO FOOD CALLENDAR ('" + TODAY  + "')";
+            
+            stmt.executeUpdate(sql3);
+
             stmt.close();
             conn.close();
         } catch (ClassNotFoundException e) {
@@ -133,6 +177,7 @@ public class MemberDAO {
 
         return list2;
     }
+    
     public ArrayList<MemberVo> list(String name) {
         ArrayList<MemberVo> list = new ArrayList<MemberVo>();
 

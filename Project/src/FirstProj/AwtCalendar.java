@@ -31,6 +31,7 @@ public class AwtCalendar extends Frame implements ItemListener {
     private Dimension dimen, dimen1;
     private int xpos, ypos;
     private JButton backButton = new JButton("뒤로가기");
+    private JButton saveButton = new JButton("저장"); // 저장 버튼 추가
 
     private Label[] dayLabel = new Label[7];
     private String day[] = { "일", "월", "화", "수", "목", "금", "토" }; // 날짜 배치용 버튼
@@ -42,9 +43,15 @@ public class AwtCalendar extends Frame implements ItemListener {
     private GridLayout grid = new GridLayout(7, 7, 5, 5);
 
     private Calendar ca = Calendar.getInstance();
-
+    //
+    private MemberDAO memberDAO;
+    
     AwtCalendar() { // 생성자
-
+    	
+    	memberDAO=new MemberDAO();
+    	
+    	
+    	
         this.setTitle("캘린더");
         this.setSize(700, 600);
         dimen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -70,8 +77,15 @@ public class AwtCalendar extends Frame implements ItemListener {
                 Main.main(new String[0]);
             }
         });
-
         
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // 저장 버튼 동작
+                saveCalendarDataToDatabase();
+            }
+        });
+        //
+        fetchCalendarDataToTextField();
         this.setVisible(true); // setVisible(true) 호출 위치 수정
     }
 
@@ -114,6 +128,7 @@ public class AwtCalendar extends Frame implements ItemListener {
         selectPanel.add(chmonth);
         selectPanel.add(mLabel);
         selectPanel.add(backButton);
+        selectPanel.add(saveButton); // 저장 버튼 추가
 
         this.add(selectPanel, "North");
         this.add(panel, "Center");
@@ -125,6 +140,17 @@ public class AwtCalendar extends Frame implements ItemListener {
         chmonth.select(m);
         chyear.addItemListener((ItemListener) this);
         chmonth.addItemListener((ItemListener) this);
+    }
+    
+    private void fetchCalendarDataToTextField() {
+        memberDAO.fetchCalendarDataToTextField();
+        // 여기에서 텍스트 필드에 값을 표시하거나 필요한 작업을 수행할 수 있습니다.
+    }
+    
+    private void saveCalendarDataToDatabase() {
+    	
+        // 여기에서 텍스트 필드의 값을 읽어와서 데이터베이스에 저장하는 작업을 수행할 수 있습니다.
+        // tf2 배열에 있는 각 날짜별 텍스트 필드의 값을 읽어와서 데이터베이스에 저장하면 됩니다.
     }
 
     // 달력 만들기
